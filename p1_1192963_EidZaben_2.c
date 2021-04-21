@@ -225,8 +225,6 @@ void storeInFile()
     isFirst = 0;
     for (int i = maxDegreeG * 2; i >= 0; i--)
     {
-        // fprintf(fPointer,"\nIndex: %d\tprodOfEquations[i].exponenent:%d\tprodOfEquations[i].coefficient:%d\n", i, prodOfEquations[i].exponent, prodOfEquations[i].coefficient);
-        // fprintf(fPointer,"C: %d\tE:%d\n", sum[i].coefficient, sum[i].exponent);
         if (prodOfEquations[i].coefficient < 0)
         {
             if (prodOfEquations[i].exponent > 1)
@@ -280,10 +278,6 @@ int getMaxDegree()
 
         while (p != NULL)
         {
-            // if (p != NULL)
-            // {
-            // printf("Coeff: %d\tExp: %d\n", p->coefficient, p->exponent);
-            // }
             if (p->exponent > maxDegree)
             {
                 maxDegree = p->exponent;
@@ -291,19 +285,14 @@ int getMaxDegree()
             p = p->next;
             count++;
         }
-        // printf("\n");
     }
     return maxDegree;
 }
 
 struct Monomial *addEquations(bool inBg)
 {
-    //TODO
-    // int lengthOfArray = sizeof allEquationsArray / sizeof allEquationsArray[0];
-    // printf("%d\n", lengthOfArray);
     int maxDegree = getMaxDegree();
     maxDegreeG = maxDegree;
-    // struct Monomial sum[maxDegree + 1];
     struct Monomial *sum = malloc((maxDegree + 1) * sizeof(struct Monomial));
     for (int i = 0; i <= maxDegree; i++)
     {
@@ -324,7 +313,6 @@ struct Monomial *addEquations(bool inBg)
             sum[p->exponent].coefficient += p->coefficient;
             p = p->next;
         }
-        // printf("\n");
     }
     if (!inBg)
     {
@@ -333,7 +321,6 @@ struct Monomial *addEquations(bool inBg)
         int isFirst = 0;
         for (int i = maxDegree; i >= 0; i--)
         {
-            // printf("C: %d\tE:%d\n", sum[i].coefficient, sum[i].exponent);
             if (sum[i].coefficient < 0)
             {
                 if (sum[i].exponent > 1)
@@ -366,14 +353,12 @@ struct Monomial *addEquations(bool inBg)
                         printf("+%d", sum[i].coefficient);
                 }
                 isFirst = 1;
-                // printf("+%dx^%d ", sum[i].coefficient, sum[i].exponent);
             }
         }
 
         printf("\n");
         printf("\nWould you like to evaluate a number?(y/n)\n");
         char res;
-        // gets(res);
         scanf(" %c", &res);
         int num, sumForNum = 0;
         if (res == 'y')
@@ -392,11 +377,9 @@ struct Monomial *addEquations(bool inBg)
                     sumForNum += sum[i].coefficient * power;
                 }
             }
-            // sumForNum += sum[0].coefficient;
             printf("The result is: %d\n", sumForNum);
         }
     }
-    // sumOfEquations = sum;
     return sum;
 }
 
@@ -441,7 +424,6 @@ struct Monomial *subEquations(bool inBg)
         int isFirst = 0;
         for (int i = maxDegree; i >= 0; i--)
         {
-            // printf("C: %d\tE:%d\n", sum[i].coefficient, sum[i].exponent);
             if (diff[i].coefficient < 0)
             {
                 if (diff[i].exponent > 1)
@@ -475,7 +457,6 @@ struct Monomial *subEquations(bool inBg)
         printf("\n");
         printf("\nWould you like to evaluate a number?(y/n)\n");
         char res;
-        // gets(res);
         scanf(" %c", &res);
         int num, diffForNum = 0;
         if (res == 'y')
@@ -494,7 +475,6 @@ struct Monomial *subEquations(bool inBg)
                     diffForNum += diff[i].coefficient * power;
                 }
             }
-            // diffForNum += diff[0].coefficient;
             printf("The result is: %d\n", diffForNum);
         }
     }
@@ -504,11 +484,8 @@ struct Monomial *subEquations(bool inBg)
 
 struct Monomial *multEquations(bool inBg)
 {
-    //TODO
-    // printf("Mult\n");
     int maxDegree = getMaxDegree();
     maxDegreeG = maxDegree;
-    // struct Monomial sum[maxDegree + 1];
     struct Monomial *prod = malloc((maxDegree + maxDegree) * sizeof(struct Monomial));
 
     for (int i = 0; i <= maxDegree * 2; i++)
@@ -552,8 +529,6 @@ struct Monomial *multEquations(bool inBg)
         int isFirst = 0;
         for (int i = maxDegree * 2; i >= 0; i--)
         {
-            // printf("\nIndex: %d\tprod[i].exponenent:%d\tprod[i].coefficient:%d\n", i, prod[i].exponent, prod[i].coefficient);
-            // printf("C: %d\tE:%d\n", sum[i].coefficient, sum[i].exponent);
             if (prod[i].coefficient < 0)
             {
                 if (prod[i].exponent > 1)
@@ -591,7 +566,6 @@ struct Monomial *multEquations(bool inBg)
         printf("\n");
         printf("\nWould you like to evaluate a number?(y/n)\n");
         char res;
-        // gets(res);
         scanf(" %c", &res);
         int num, prodForNum = 0;
         if (res == 'y')
@@ -698,13 +672,11 @@ void readInEquations()
         struct Monomial currEquArray[10];
         int monsCount = 0;
         fgets(equation, 150, fPointer);
-        // printf("%s", equation);
 
         removeSpaces(equation);
         printf("%s", equation);
 
         char *equWithPlusses = addPlusSigns(equation);
-        // printf("%s\n", equWithPlusses);
 
         newLineToTerm(equWithPlusses);
 
@@ -715,8 +687,7 @@ void readInEquations()
         while (piece != NULL)
         {
             int coeff;
-            int exp; // = -12345;
-            // printf("%s", piece);
+            int exp;
             if (strlen(piece) == 1)
             {
                 if (piece[0] == 'x')
@@ -784,8 +755,6 @@ void readInEquations()
             currEquArray[monsCount] = mono;
             monsCount++;
 
-            // printf("%s: coefficient: %d, exp: %d", piece, coeff, exp);
-            // printf("\n");
             piece = strtok(NULL, "+");
         }
 
@@ -795,9 +764,7 @@ void readInEquations()
         temp->next = NULL;
         temp->prev = NULL;
         allEquationsArray[loopedThrough] = temp;
-        // printf("***********%d   %d**********\n", temp->coefficient, temp->exponent);
-        int i;
-        for (i = 1; i < monsCount; i++)
+        for (int i = 1; i < monsCount; i++)
         {
             struct Monomial *temp2 = malloc(sizeof(struct Monomial));
             temp->next = temp2;
@@ -807,34 +774,6 @@ void readInEquations()
             temp2->prev = temp;
             temp = temp2;
         }
-        // printf("***********%d   %d**********\n", temp->coefficient, temp->exponent);
-        // printf("***********%d   %d**********\n", allEquationsArray[loopedThrough]->next->coefficient, allEquationsArray[loopedThrough]->next->exponent);
-
-        // for (int i = 0; i < monsCount; i++)
-        // {
-        //     if (i == 0)
-        //     {
-        //         //if (currEquArray[i + 1].coefficient != NULL)
-        //         // {
-        //         currEquArray[i].next = &currEquArray[i + 1];
-        //         currEquArray[i].prev = NULL;
-        //         // }
-        //     }
-        //     else if (i == monsCount - 1)
-        //     {
-        //         // if (currEquArray[i - 1].coefficient != NULL)
-        //         // {
-        //         currEquArray[i].prev = &currEquArray[i - 1];
-        //         currEquArray[i].next = NULL;
-        //         // }
-        //     }
-        //     else
-        //     {
-        //         currEquArray[i].next = &currEquArray[i + 1];
-        //         currEquArray[i].prev = &currEquArray[i - 1];
-        //     }
-        // }
-        // allEquationsArray[loopedThrough] = currEquArray[0];
         loopedThrough++;
 
         printf("\n");
@@ -844,5 +783,3 @@ void readInEquations()
     printf("Equations read successfully");
     return;
 }
-
-// void
