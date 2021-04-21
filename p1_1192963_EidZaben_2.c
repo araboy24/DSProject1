@@ -520,7 +520,7 @@ struct Monomial *multEquations(bool inBg)
             }
             p = allEquationsArray[i];
         }
-    }
+    } 
 
     if (!inBg)
     {
